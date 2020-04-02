@@ -2,6 +2,9 @@ package com.example.Marcel.oop;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -36,6 +39,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     int newilosc;
     String newNazwa;
     String newData;
+
+    boolean delete_active=false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,13 +78,44 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                openDialog();
-                Toast.makeText(MainActivity.this, allProducts.get(i).getNazwa(), Toast.LENGTH_SHORT).show();
-                clicked_number=i;
+                if(delete_active){
+                    productsName.remove(i);
+                    databaseHandler.deleteProduct(allProducts.get(i));
+                    allProducts.remove(i);
+                    adapter.notifyDataSetChanged();
+                    delete_active=false;
+                }
+                else{
+                    openDialog();
+                    clicked_number=i;
+                }
+
             }
         });
 
     }
+
+
+
+    //menu
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu,menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.kalkulator:
+                return true;
+        }
+        return true;
+    }
+
     public void addItems(){
         productsName.clear();
         if (allProducts.size() > 0) {
@@ -129,15 +165,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
 
             case R.id.btnDelete:
+                delete_active=true;
 
 
-                if (allProducts.size() > 0) {
-                    productsName.remove(0);
-                    databaseHandler.deleteProduct(allProducts.get(0));
-                    allProducts.remove(0);
-                } else {
-                    return;
-                }
 
 
 
