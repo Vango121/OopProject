@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".DailyKcalActivity">
+
+    <ImageButton
+        android:id="@+id/imageButtonNext"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="ChangeData"
+        app:layout_constraintEnd_toStartOf="@+id/guidelineRight"
+        app:srcCompat="@android:drawable/ic_media_next"
+        app:layout_constraintTop_toTopOf="@id/guidelineUpper" />
+
+    <ImageButton
+        android:id="@+id/imageButtonPrevious"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="ChangeData"
+        app:layout_constraintStart_toStartOf="@+id/guidelineLeft"
+        app:srcCompat="@android:drawable/ic_media_previous"
+        app:layout_constraintTop_toTopOf="@id/guidelineUpper"/>
+
+    <TextView
+        android:id="@+id/textViewData"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="06.04.2020"
+        android:textSize="20sp"
+        android:layout_marginTop="10dp"
+        app:layout_constraintEnd_toStartOf="@+id/imageButtonPrevious"
+        app:layout_constraintStart_toEndOf="@+id/imageButtonNext"
+        app:layout_constraintTop_toTopOf="@id/guidelineUpper" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guidelineLeft"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="0dp"
+        app:layout_constraintGuide_percent="0.05"
+        />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guidelineRight"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="0dp"
+        app:layout_constraintGuide_percent="0.95" />
+    <android.support.constraint.Guideline
+        android:id="@+id/guidelineUpper"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="0dp"
+        app:layout_constraintGuide_percent="0.03" />
+    <android.support.constraint.Guideline
+        android:id="@+id/guidelineBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="0dp"
+        app:layout_constraintGuide_percent="0.96" />
+    <android.support.constraint.Guideline
+        android:id="@+id/guidelineDown"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="0dp"
+        app:layout_constraintGuide_percent="0.98" />
+
+    <Button
+        android:id="@+id/buttonDodaj"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Dodaj"
+        app:layout_constraintEnd_toStartOf="@+id/guidelineRight"
+        app:layout_constraintStart_toStartOf="@+id/guidelineLeft"
+        android:layout_marginTop="10dp"
+        app:layout_constraintTop_toBottomOf="@+id/imageButtonNext" />
+
+    <RelativeLayout
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginEnd="0dp"
+        android:layout_marginRight="0dp"
+        app:layout_constraintEnd_toStartOf="@+id/guidelineRight"
+        app:layout_constraintStart_toStartOf="@id/guidelineLeft"
+        app:layout_constraintTop_toBottomOf="@id/buttonDodaj"
+        app:layout_constraintBottom_toTopOf="@id/guidelineBar"
+        android:layout_marginTop="15dp"
+        android:orientation="vertical"
+        >
+
+        <ListView
+            android:id="@+id/listViewKcal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="3dp"
+            >
+        </ListView>
+        <com.daasuu.ahp.AnimateHorizontalProgressBar
+            android:id="@+id/animate_progress_bar1"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_marginTop="10dp"
+            android:layout_alignParentBottom="true"
+            app:ahp_backgroundColor="@color/ProgressBarBottom"
+            app:ahp_progressColor="@color/ProgressBar"
+            ></com.daasuu.ahp.AnimateHorizontalProgressBar>
+
+    </RelativeLayout>
+
+</android.support.constraint.ConstraintLayout>

@@ -1,5 +1,6 @@
 package com.example.Marcel.oop;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -111,6 +112,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
             case R.id.kalkulator:
+                Intent intent = new Intent(MainActivity.this,DailyKcalActivity.class);
+                MainActivity.this.startActivity(intent);
                 return true;
         }
         return true;
