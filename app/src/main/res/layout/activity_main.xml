@@ -30,12 +30,20 @@
             android:layout_gravity="center_horizontal"
             android:hint="Wpisz liczbę kalorii na 100g"
             android:inputType="number"/>
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/edtProductDate"
-            android:layout_gravity="center_horizontal"
-            android:hint="Wpisz datę przydatności" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/edtProductDate"
+                android:inputType="date"
+                android:maxLength="10"
+                android:hint="Wpisz datę przydatności"
+                android:layout_gravity="center_horizontal"/>
+
+
+
+
+
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

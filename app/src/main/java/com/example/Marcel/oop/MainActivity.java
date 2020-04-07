@@ -3,6 +3,9 @@ package com.example.Marcel.oop;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -12,6 +15,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.Marcel.oop.R;
@@ -94,6 +98,31 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
         });
 
+
+ //DateInputMask e=new DateInputMask(edtProductDate);
+        edtProductDate.addTextChangedListener(new TextWatcher() {
+            int len=0;
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                String val = edtProductDate.getText().toString();
+
+                int count = countChar(val,'/');
+                if((val.length()==2||val.length()==5)&&count <2){
+                    edtProductDate.append("/");
+                }
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
     }
 
 
@@ -197,5 +226,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         jedzenie.setNazwa(newNazwa);
         databaseHandler.updateProduct(jedzenie);
         addItems();
+    }
+    public int countChar(String str, char c)
+    {
+        int count = 0;
+
+        for(int i=0; i < str.length(); i++)
+        {    if(str.charAt(i) == c)
+            count++;
+        }
+
+        return count;
     }
 }
