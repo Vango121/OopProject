@@ -6,4 +6,5 @@ package com.example.Marcel.oop;
 
 public interface DialogListener {
     void apply(String nazwa,String kcal,String data,String ilosc);
+    void pass(Jedzenie jedzenie);
 }

@@ -1,7 +1,7 @@
 package com.example.Marcel.oop;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
+//import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -19,9 +19,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.Marcel.oop.R;
+import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener , DialogListener {
 
@@ -29,11 +32,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     EditText edtProductName, edtProductKcal, edtProductAmount, edtProductDate;
     Button btnAdd, btnDelete;
     ListView listView;
-
     int clicked_number; // pressed id from listview
     List<Produkt> allProducts;
     ArrayList<String> productsName;
-
+TextInputLayout textInputLayout;
 
     MySqliteHandler databaseHandler;
 
@@ -59,26 +61,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         btnAdd = (Button) findViewById(R.id.btnAdd);
         btnDelete = (Button) findViewById(R.id.btnDelete);
         listView = (ListView) findViewById(R.id.listView);
-
-
-
+        textInputLayout = findViewById(R.id.textField);
         btnAdd.setOnClickListener(MainActivity.this);
         btnDelete.setOnClickListener(MainActivity.this);
-
-
-
-
         databaseHandler = new MySqliteHandler(MainActivity.this);
         allProducts = databaseHandler.getAllProducts();
         productsName = new ArrayList<>();
-
-
         addItems();
-
-
-
-
-
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -94,42 +83,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     openDialog();
                     clicked_number=i;
                 }
-
             }
         });
-
-
- //DateInputMask e=new DateInputMask(edtProductDate);
-        edtProductDate.addTextChangedListener(new TextWatcher() {
-            int len=0;
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                String val = edtProductDate.getText().toString();
-
-                int count = countChar(val,'/');
-                if((val.length()==2||val.length()==5)&&count <2){
-                    edtProductDate.append("/");
-                }
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-
-            }
-        });
+        DateInputMask e=new DateInputMask(edtProductDate, textInputLayout);
     }
 
 
-
     //menu
-
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
@@ -153,10 +113,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if (allProducts.size() > 0) {
 
             for (int i = 0; i < allProducts.size(); i++) {
-
                 Jedzenie produkt = (Jedzenie)allProducts.get(i);
                 productsName.add(produkt.getNazwa() + " Ilosc: " +produkt.getIlosc()+ " Data przydatnosci: "+ produkt.getData_przydatnosci()+" Kcal: "+produkt.getKcal());
-
             }
         }
         adapter = new ArrayAdapter(MainActivity.this, android.R.layout.simple_list_item_1, productsName);
@@ -193,23 +151,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 edtProductKcal.setText("");
                 edtProductAmount.setText("");
                 edtProductDate.setText("");
-
                 break;
-
             case R.id.btnDelete:
                 delete_active=true;
-
-
-
-
-
                 break;
-
-
         }
-
         adapter.notifyDataSetChanged();
-
     }
 
     @Override
@@ -227,15 +174,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         databaseHandler.updateProduct(jedzenie);
         addItems();
     }
-    public int countChar(String str, char c)
-    {
-        int count = 0;
-
-        for(int i=0; i < str.length(); i++)
-        {    if(str.charAt(i) == c)
-            count++;
-        }
-
-        return count;
+    @Override
+    public void pass(Jedzenie jedzenie) {
     }
 }

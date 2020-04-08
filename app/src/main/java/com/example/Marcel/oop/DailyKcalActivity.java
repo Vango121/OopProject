@@ -1,6 +1,7 @@
 package com.example.Marcel.oop;
 
-import android.support.v7.app.AppCompatActivity;
+//import android.support.v7.app.AppCompatActivity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -8,14 +9,14 @@ import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.Dni;
 import com.daasuu.ahp.AnimateHorizontalProgressBar;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.HashMap;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 public class DailyKcalActivity extends AppCompatActivity {
 
@@ -142,5 +143,9 @@ public void changeItems(){
             changeItems();
             break;
     }
+    }
+    public void Dodaj(View view){
+        Intent intent = new Intent(DailyKcalActivity.this,AddActivity.class);
+        DailyKcalActivity.this.startActivity(intent);
     }
 }

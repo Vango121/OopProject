@@ -1,4 +1,4 @@
-package com;
+package com.example.Marcel.oop;
 
 import com.example.Marcel.oop.Jedzenie;
 
