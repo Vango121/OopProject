@@ -3,6 +3,7 @@ package com.example.Marcel.oop;
 import androidx.appcompat.app.AppCompatActivity;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import android.widget.ArrayAdapter;
@@ -21,8 +22,9 @@ public class AddActivity extends AppCompatActivity {
     List<Produkt> allProducts;
     MySqliteHandler databaseHandler;
     Button ok;
-    String recieveValue;
-
+    boolean exist=false;
+    Jedzenie jedzenie;//item to pass
+    ArrayList<Jedzenie>listToPass = new ArrayList<>();
     public void getItems(){
         allProducts=new ArrayList<>();
         databaseHandler = new MySqliteHandler(AddActivity.this);
@@ -39,10 +41,28 @@ public class AddActivity extends AppCompatActivity {
         search= findViewById(R.id.editTextAdd);
         a = new ArrayList<>();
         getItems();
+        getIntent().removeExtra("Jedzenie");
         adapter = new ArrayAdapter(AddActivity.this, android.R.layout.simple_list_item_1, a);
         listView.setAdapter(adapter);
         SearchInput searchInput=new SearchInput(adapter,listView,search,a);
-        ListViewDialog listViewDialog = new ListViewDialog(ok,listView,AddActivity.this);
-        recieveValue=listViewDialog.getRecieveValue();
+        ListViewDialog listViewDialog = new ListViewDialog(ok,listView,AddActivity.this,allProducts);
+        if(exist){
+        jedzenie=listViewDialog.getJedzenie();
+
+        listToPass.add(jedzenie);
+        exist=false;
+        }
+    }
+    public void setValue(boolean existt){
+       exist=existt;
+    }
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(AddActivity.this,DailyKcalActivity.class);
+        Bundle bundle=new Bundle();
+        bundle.putParcelableArrayList("Jedzenie",listToPass);
+        intent.putExtra("Jedzenie",bundle);
+        startActivity(intent);
+        finish();
     }
 }
