@@ -6,22 +6,20 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
-
 import com.daasuu.ahp.AnimateHorizontalProgressBar;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-
 import java.lang.reflect.Type;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
+
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -31,47 +29,12 @@ ListView listView;
 TextView Data;
 ImageButton buttonNext, buttonPrevious;
 ArrayAdapter adapter;
+DateManager dateManager;
 ArrayList<String> productsName= new ArrayList<>();
 ArrayList<Dni> listOfDni = new ArrayList<>();
 AnimateHorizontalProgressBar progressBar;
 String recievedDataValue="";
-private void ustawDate(){
-    Date date = Calendar.getInstance().getTime();
-    SimpleDateFormat dateFormat= new SimpleDateFormat("dd-MM-yyyy");
-    Data.setText(dateFormat.format(date));
-}
-private void setPreviousDate(){
 
-        String inputDate = Data.getText().toString();
-        SimpleDateFormat  format = new SimpleDateFormat("dd-MM-yyyy");
-        try {
-            Date date = format.parse(inputDate);
-            Calendar c = Calendar.getInstance();
-            c.setTime(date);
-            c.add(Calendar.DATE, -1);
-            inputDate = format.format(c.getTime());
-        } catch (Exception e) {
-            e.printStackTrace();
-            inputDate ="";
-        }
-        Data.setText(inputDate);
-    }
-    private void setNextDate(){
-
-        String inputDate = Data.getText().toString();
-        SimpleDateFormat  format = new SimpleDateFormat("dd-MM-yyyy");
-        try {
-            Date date = format.parse(inputDate);
-            Calendar c = Calendar.getInstance();
-            c.setTime(date);
-            c.add(Calendar.DATE, +1);
-            inputDate = format.format(c.getTime());
-        } catch (Exception e) {
-            e.printStackTrace();
-            inputDate ="";
-        }
-        Data.setText(inputDate);
-    }
 public void changeItems(){
     int g=-1;
     if(productsName.size()>0){
@@ -91,7 +54,6 @@ public void changeItems(){
         suma_kcal+=listOfDni.get(g).getSpis().get(i).getKcal()*(listOfDni.get(g).getSpis().get(i).getIlosc()/100);
     }}
     progressBar.setMax(2100);
-    Toast.makeText(this, suma_kcal+"", Toast.LENGTH_SHORT).show();
     progressBar.setProgress(suma_kcal);
     adapter.notifyDataSetChanged();
 
@@ -130,7 +92,6 @@ public void changeItems(){
     return -1;
     }
 public int getIndex(ArrayList<Dni>lista,String a){
-    Log.i("value",a);
     for (int i = 0; i <lista.size(); i++) {
         if(lista.get(i).getData().equals(a)){
             Log.i("lista",lista.get(i).getData());
@@ -199,10 +160,10 @@ public int getIndex(ArrayList<Dni>lista,String a){
         listView=findViewById(R.id.listViewKcal);
         loadData();
          progressBar = (AnimateHorizontalProgressBar) findViewById(R.id.animate_progress_bar1);
-        ustawDate();
-
-
-putData();
+        //ustawDate();
+        dateManager=new DateManager(Data.getText().toString(),Data);
+        dateManager.ustawDate();
+        putData();
         ArrayList<Jedzenie> jedzeniess = new ArrayList<>();
         jedzeniess.add(new Jedzenie("Kielbasa12",600,"24/03/2000",12));
         jedzeniess.add(new Jedzenie("Kielbas12a1",100,"24/03/2000",123));
@@ -230,11 +191,14 @@ putData();
     public void ChangeData(View view){
     switch (view.getId()){
         case R.id.imageButtonNext:
-            setNextDate();
+            dateManager.setDate(Data.getText().toString());
+            dateManager.setNextDate();
             changeItems();
             break;
         case R.id.imageButtonPrevious:
-            setPreviousDate();
+            //setPreviousDate();
+            dateManager.setDate(Data.getText().toString());
+            dateManager.setPreviousDate();
             changeItems();
             break;
     }
@@ -251,4 +215,23 @@ putData();
         DailyKcalActivity.this.startActivity(intent);
         finish();
     }
+    //menu
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menudailykcal,menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.Ustawienia:
+                Intent intent = new Intent(DailyKcalActivity.this,SettingsActivity.class);
+                DailyKcalActivity.this.startActivity(intent);
+                return true;
+        }
+        return true;
+    }
+
 }

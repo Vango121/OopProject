@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.preference.PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory android:title="Licznik Kalorii">
+        <androidx.preference.EditTextPreference
+            android:inputType="number"
+            android:key="edit_text_preference_kcal"
+            android:maxLength="6"
+            android:selectAllOnFocus="true"
+            android:singleLine="true"
+            android:title="Maksymalna liczba kalorii:"
+            app:dialogIcon="@android:drawable/btn_star_big_on"
+            app:iconSpaceReserved="false" />
+    </PreferenceCategory>
+</androidx.preference.PreferenceScreen>
