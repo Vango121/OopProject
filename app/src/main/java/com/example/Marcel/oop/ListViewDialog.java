@@ -1,5 +1,6 @@
 package com.example.Marcel.oop;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
@@ -61,6 +62,7 @@ public class ListViewDialog implements AdapterView.OnItemClickListener {
                 done=true;
                 save=true;
                 dialog.dismiss();
+                ((Activity)context).finish();
             }
         });
         cancel.setOnClickListener(new View.OnClickListener() {

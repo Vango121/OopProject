@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -34,6 +35,7 @@ ArrayList<String> productsName= new ArrayList<>();
 ArrayList<Dni> listOfDni = new ArrayList<>();
 AnimateHorizontalProgressBar progressBar;
 String recievedDataValue="";
+int max_kcal=2100;
 
 public void changeItems(){
     int g=-1;
@@ -47,14 +49,17 @@ public void changeItems(){
             break;
         }
     }
+
     int suma_kcal=0;
     if(g>=0){
     for (int i = 0; i <listOfDni.get(g).getSpis().size(); i++) {
         productsName.add(listOfDni.get(g).getSpis().get(i).getNazwa()+" x"+listOfDni.get(g).getSpis().get(i).getIlosc()+" kcal:"+listOfDni.get(g).getSpis().get(i).getKcal());
-        suma_kcal+=listOfDni.get(g).getSpis().get(i).getKcal()*(listOfDni.get(g).getSpis().get(i).getIlosc()/100);
+        suma_kcal+=(listOfDni.get(g).getSpis().get(i).getKcal()*(listOfDni.get(g).getSpis().get(i).getIlosc())/100);
+
     }}
-    progressBar.setMax(2100);
+    progressBar.setMax(max_kcal);
     progressBar.setProgress(suma_kcal);
+
     adapter.notifyDataSetChanged();
 
 }
@@ -71,13 +76,16 @@ public void changeItems(){
             }
         }
         int suma_kcal=0;
+
         if(g>=0){
         for (int i = 0; i <listOfDni.get(g).getSpis().size(); i++) {
             productsName.add(listOfDni.get(g).getSpis().get(i).getNazwa()+" x"+listOfDni.get(g).getSpis().get(i).getIlosc()+" kcal:"+listOfDni.get(g).getSpis().get(i).getKcal());
-            suma_kcal+=listOfDni.get(g).getSpis().get(i).getKcal()*(listOfDni.get(g).getSpis().get(i).getIlosc()/100);
+            suma_kcal+=(listOfDni.get(g).getSpis().get(i).getKcal()*(listOfDni.get(g).getSpis().get(i).getIlosc())/100);
+
         }
-        progressBar.setMax(2100);
+        progressBar.setMax(max_kcal);
         progressBar.setProgress(suma_kcal);}
+
         adapter = new ArrayAdapter(DailyKcalActivity.this, android.R.layout.simple_list_item_1, productsName);
         listView.setAdapter(adapter);
     }
@@ -158,6 +166,7 @@ public int getIndex(ArrayList<Dni>lista,String a){
         buttonNext=findViewById(R.id.imageButtonNext);
         buttonPrevious=findViewById(R.id.imageButtonPrevious);
         listView=findViewById(R.id.listViewKcal);
+        max_kcal=Integer.valueOf(PreferenceManager.getDefaultSharedPreferences(this).getString("edit_text_preference_kcal", "2100"));
         loadData();
          progressBar = (AnimateHorizontalProgressBar) findViewById(R.id.animate_progress_bar1);
         //ustawDate();
@@ -170,6 +179,15 @@ public int getIndex(ArrayList<Dni>lista,String a){
         jedzeniess.add(new Jedzenie("Kielbas122a1",100,"24/03/2000",12));
         listOfDni.add(new Dni("06-04-2020",jedzeniess));
         addItems();
+    }
+
+    @Override
+    protected void onResume() {
+        max_kcal=Integer.parseInt(PreferenceManager.getDefaultSharedPreferences(this).getString("edit_text_preference_kcal", "2100"));
+        progressBar.setMax(max_kcal);
+        Log.i("max kcal",max_kcal+"");
+       changeItems();
+        super.onResume();
     }
 
     @Override
@@ -220,6 +238,7 @@ public int getIndex(ArrayList<Dni>lista,String a){
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menudailykcal,menu);
+
         return true;
     }
 
@@ -229,6 +248,7 @@ public int getIndex(ArrayList<Dni>lista,String a){
             case R.id.Ustawienia:
                 Intent intent = new Intent(DailyKcalActivity.this,SettingsActivity.class);
                 DailyKcalActivity.this.startActivity(intent);
+
                 return true;
         }
         return true;
