@@ -4,6 +4,9 @@ import com.example.Marcel.oop.Jedzenie;
 
 import java.util.ArrayList;
 
+/**
+ * custom object which have list of 'jedzenie' and date
+ */
 public class Dni {
     ArrayList<Jedzenie> spis;
     String data;

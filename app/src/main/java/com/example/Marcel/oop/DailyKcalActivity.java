@@ -24,6 +24,9 @@ import java.util.ArrayList;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+/**
+ * Activity class
+ */
 public class DailyKcalActivity extends AppCompatActivity {
 
 ListView listView;
@@ -37,7 +40,10 @@ AnimateHorizontalProgressBar progressBar;
 String recievedDataValue="";
 int max_kcal=2100;
 
-public void changeItems(){
+    /**
+     * This method change item list in list view and change kcal proggress bar.
+     */
+    public void changeItems(){
     int g=-1;
     if(productsName.size()>0){
         productsName.clear();
@@ -63,6 +69,10 @@ public void changeItems(){
     adapter.notifyDataSetChanged();
 
 }
+
+    /**
+     * just like changeitems without adapter notification
+     */
     public void addItems(){
     int g=-1;
     if(productsName.size()>0){
@@ -90,25 +100,42 @@ public void changeItems(){
         listView.setAdapter(adapter);
     }
 
-    public int checkIfExist(Jedzenie jedzenie,ArrayList<Jedzenie>lista){
-        for (int i = 0; i <lista.size(); i++) {
-            if(lista.get(i).getNazwa().equals(jedzenie.getNazwa())){
+    /**
+     * check if 'jedzenie' object is in Array
+     * @param jedzenie custom food object
+     * @param list list of food objects
+     * @return -1 or item index if found
+     */
+    public int checkIfExist(Jedzenie jedzenie,ArrayList<Jedzenie>list){
+        for (int i = 0; i <list.size(); i++) {
+            if(list.get(i).getNazwa().equals(jedzenie.getNazwa())){
                 return i;
             }
         }
 
     return -1;
     }
-public int getIndex(ArrayList<Dni>lista,String a){
-    for (int i = 0; i <lista.size(); i++) {
-        if(lista.get(i).getData().equals(a)){
-            Log.i("lista",lista.get(i).getData());
+
+    /**
+     * check if picked day already exist in ArrayList of 'Dni'
+     * @param list list of 'Dni'
+     * @param a String with data to check if exist in list
+     * @return index or -1
+     */
+    public int getIndex(ArrayList<Dni>list,String a){
+    for (int i = 0; i <list.size(); i++) {
+        if(list.get(i).getData().equals(a)){
+            Log.i("lista",list.get(i).getData());
             Log.i("recievedfor",a+" "+i );
             return i;
         }
     }
     return -1;
 }
+
+    /**
+     * Method to put Data passed from previous activity in Array and save in Shared preferences
+     */
     public void putData(){
         ArrayList<Jedzenie> jedzenies = new ArrayList<>();
 
@@ -147,7 +174,9 @@ public int getIndex(ArrayList<Dni>lista,String a){
     }
 
 
-
+    /**
+     * Get json data from shared preference and pass it as Array
+     */
     public void loadData() {
         SharedPreferences sharedPreferences = DailyKcalActivity.this.getSharedPreferences("sharedPrefss", Context.MODE_PRIVATE);
         String text = sharedPreferences.getString("Array", "");
@@ -158,6 +187,11 @@ public int getIndex(ArrayList<Dni>lista,String a){
 
         listOfDni=gson.fromJson(text,type);}
     }
+
+    /**
+     * Android lifecycle method
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -173,14 +207,12 @@ public int getIndex(ArrayList<Dni>lista,String a){
         dateManager=new DateManager(Data.getText().toString(),Data);
         dateManager.ustawDate();
         putData();
-        ArrayList<Jedzenie> jedzeniess = new ArrayList<>();
-        jedzeniess.add(new Jedzenie("Kielbasa12",600,"24/03/2000",12));
-        jedzeniess.add(new Jedzenie("Kielbas12a1",100,"24/03/2000",123));
-        jedzeniess.add(new Jedzenie("Kielbas122a1",100,"24/03/2000",12));
-        listOfDni.add(new Dni("06-04-2020",jedzeniess));
         addItems();
     }
 
+    /**
+     * Android lifecycle method. Method changeItems is used here
+     */
     @Override
     protected void onResume() {
         max_kcal=Integer.parseInt(PreferenceManager.getDefaultSharedPreferences(this).getString("edit_text_preference_kcal", "2100"));
@@ -190,6 +222,9 @@ public int getIndex(ArrayList<Dni>lista,String a){
         super.onResume();
     }
 
+    /**
+     * Android lifecycle method save data from all days in sharedpreferences
+     */
     @Override
     protected void onStop() {
     if(ListViewDialog.save){
@@ -206,6 +241,10 @@ public int getIndex(ArrayList<Dni>lista,String a){
         super.onStop();
     }
 
+    /**
+     * Method that change data in TextView and handle button clicks
+     * @param view
+     */
     public void ChangeData(View view){
     switch (view.getId()){
         case R.id.imageButtonNext:
@@ -221,6 +260,13 @@ public int getIndex(ArrayList<Dni>lista,String a){
             break;
     }
     }
+
+    /**
+     * Method that handle button click, and open new activity
+     * @see AddActivity
+     * Also send data from textView
+     * @param view
+     */
     public void Dodaj(View view){
         Intent intent = new Intent(DailyKcalActivity.this,AddActivity.class);
         SharedPreferences sharedPreferences = DailyKcalActivity.this.getSharedPreferences("sharedPrefs", MODE_PRIVATE);
@@ -234,6 +280,12 @@ public int getIndex(ArrayList<Dni>lista,String a){
         finish();
     }
     //menu
+
+    /**
+     * Menu method
+     * @param menu
+     * @return method return only true
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
@@ -242,6 +294,11 @@ public int getIndex(ArrayList<Dni>lista,String a){
         return true;
     }
 
+    /**
+     * Method which handle menu items in this case only settings
+     * @param item menu item
+     * @return true
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){

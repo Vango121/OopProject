@@ -7,6 +7,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
 
+/**
+ * setting activity class
+ */
 public class SettingsActivity extends AppCompatActivity {
 
     @Override

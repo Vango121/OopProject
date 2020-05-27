@@ -15,6 +15,9 @@ import android.widget.Toast;
 
 import java.util.List;
 
+/**
+ * listview with dialog on click class
+ */
 public class ListViewDialog implements AdapterView.OnItemClickListener {
     ListView listView;
     String recieveValue;
@@ -26,6 +29,14 @@ public class ListViewDialog implements AdapterView.OnItemClickListener {
     static boolean done;
     static boolean save=false;
     AddActivity addActivity;
+
+    /**
+     * Class constructor
+     * @param ok Ok button
+     * @param listView
+     * @param context app context
+     * @param lista array of produkt
+     */
     public ListViewDialog(Button ok, ListView listView, Context context, List<Produkt> lista){
         this.listView=listView;
         this.ok=ok;
@@ -34,11 +45,23 @@ public class ListViewDialog implements AdapterView.OnItemClickListener {
         listView.setOnItemClickListener(this);
     }
 
+    /**
+     * get data from sharedpreferences
+     * @return String Data
+     */
     public String loadData() {
         SharedPreferences sharedPreferences = context.getSharedPreferences("sharedPrefs", Context.MODE_PRIVATE);
         String text = sharedPreferences.getString("data", "");
         return text;
     }
+
+    /**
+     * ListView on item click which trigger custom dialog
+     * @param adapterView
+     * @param view
+     * @param i index of item clicked
+     * @param l
+     */
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
         id=i;

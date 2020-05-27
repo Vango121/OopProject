@@ -1,7 +1,7 @@
 package com.example.Marcel.oop;
 
 /**
- * Created by Vango on 30.03.2020.
+ * pass data when triggered to another class
  */
 
 public interface DialogListener {

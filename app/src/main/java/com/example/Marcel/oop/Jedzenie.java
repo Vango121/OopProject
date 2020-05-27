@@ -4,7 +4,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 /**
- * Created by Vango on 29.03.2020.
+ * Custom object
  */
 
 public class Jedzenie extends Produkt implements Parcelable {
@@ -13,6 +13,15 @@ public class Jedzenie extends Produkt implements Parcelable {
     public Jedzenie(){
 super();
     }
+
+    /**
+     * jedzenie constructor
+     * @param id id in database of 'jedzenie'
+     * @param Nazwa Name of ' jedzenie'
+     * @param kcal number of kcal
+     * @param data_przydatnosci
+     * @param ilosc int amount
+     */
     public Jedzenie(int id,String Nazwa,int kcal,String data_przydatnosci,int ilosc) {
         super(id,Nazwa,kcal,data_przydatnosci);
         this.ilosc=ilosc;
@@ -31,7 +40,12 @@ super();
     }
 
 
-    //write object values to parcel for storage
+
+    /**
+     * write object values to parcel for storage
+     * @param dest
+     * @param flags
+     */
     public void writeToParcel(Parcel dest, int flags){
         dest.writeString(getNazwa());
         dest.writeInt(getKcal());
@@ -39,7 +53,11 @@ super();
         dest.writeInt(getIlosc());
     }
 
-    //constructor used for parcel
+
+    /**
+     * constructor used for parcel
+     * @param parcel
+     */
     public Jedzenie(Parcel parcel){
         setNazwa(parcel.readString());
         setKcal(parcel.readInt());
@@ -47,7 +65,9 @@ super();
         setIlosc(parcel.readInt());
     }
 
-    //creator - used when un-parceling our parcle (creating the object)
+    /**
+     * creator - used when un-parceling our parcle (creating the object)
+     */
     public static final Parcelable.Creator<Jedzenie> CREATOR = new Parcelable.Creator<Jedzenie>(){
 
 

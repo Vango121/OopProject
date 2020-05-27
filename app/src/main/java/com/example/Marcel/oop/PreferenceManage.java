@@ -4,6 +4,9 @@ import android.os.Bundle;
 
 import androidx.preference.PreferenceFragmentCompat;
 
+/**
+ * Class that load settings xml
+ */
 public class PreferenceManage extends PreferenceFragmentCompat {
 
     @Override

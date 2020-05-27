@@ -10,12 +10,17 @@ import android.util.Log;
 import java.util.ArrayList;
 import java.util.List;
 
-
+/**
+ * class which handle all SqlLite operations
+ */
 public class MySqliteHandler extends SQLiteOpenHelper {
 
 
 
-    // Database Version
+
+    /**
+     * Database Version
+     */
     private static final int DATABASE_VERSION = 2;
 
     // Database Name
@@ -36,9 +41,11 @@ public class MySqliteHandler extends SQLiteOpenHelper {
             " INTEGER PRIMARY KEY, " + COLUMN_PRODUCT_NAME + " TEXT, "+ COLUMN_PRODUCT_KCAL + " INTEGER, " +
             COLUMN_PRODUCT_DATE + " TEXT, "+COLUMN_PRODUCT_AMOUNT+" INTEGER" + ")";
 
+    /**
+     * constructor
+     * @param context current context
+     */
     public MySqliteHandler(Context context) {
-
-
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
 
     }
@@ -64,6 +71,11 @@ public class MySqliteHandler extends SQLiteOpenHelper {
     // All Database Operations: create, read, update, delete
 
     // create
+
+    /**
+     * Create new item in database
+     * @param produkt custom object to put in database
+     */
     public void addProduct(Produkt produkt) {
 
         SQLiteDatabase database = this.getWritableDatabase();
@@ -84,6 +96,12 @@ public class MySqliteHandler extends SQLiteOpenHelper {
 
 
     // Getting a single product - read
+
+    /**
+     * Getting a single product - read
+     * @param id item id
+     * @return jedzenie
+     */
     public Produkt getProduct(int id) {
 
         SQLiteDatabase database = this.getReadableDatabase();
@@ -105,7 +123,12 @@ public class MySqliteHandler extends SQLiteOpenHelper {
 
 
 
-    // Getting all Products Objects
+
+
+    /**
+     * Getting all Products Objects
+     * @return array of all produkt
+     */
     public List<Produkt> getAllProducts() {
 
         List<Produkt> produktList = new ArrayList<>();
@@ -145,6 +168,12 @@ public class MySqliteHandler extends SQLiteOpenHelper {
 
     // Updating a single product
 
+    /**
+     * Updating a single product
+     * @param produkt object with data to update
+     * @return int with information about success
+     */
+
     public int updateProduct(Produkt produkt) {
 
         SQLiteDatabase database = this.getWritableDatabase();
@@ -162,7 +191,12 @@ public class MySqliteHandler extends SQLiteOpenHelper {
 
 
 
-    // Deleteing a single product
+
+
+    /**
+     * Delete a single product
+     * @param produkt
+     */
     public void deleteProduct(Produkt produkt) {
 
         SQLiteDatabase database = this.getWritableDatabase();
@@ -173,10 +207,10 @@ public class MySqliteHandler extends SQLiteOpenHelper {
 
     }
 
-
-
-    // Getting the number of products
-
+    /**
+     * Get number of items
+     * @return
+     */
     public int getProductsCount() {
         String productCountQuery = "SELECT * FROM " + TABLE_PRODUCT;
         SQLiteDatabase database = this.getWritableDatabase();

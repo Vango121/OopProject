@@ -13,6 +13,9 @@ import android.widget.ListView;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * class to find product and add it into selected day
+ */
 public class AddActivity extends AppCompatActivity {
     ArrayAdapter adapter;
     ListView listView;
@@ -25,6 +28,10 @@ public class AddActivity extends AppCompatActivity {
     boolean exist=false;
     Jedzenie jedzenie;//item to pass
     ArrayList<Jedzenie>listToPass = new ArrayList<>();
+
+    /**
+     * This metod get data from litesql
+     */
     public void getItems(){
         allProducts=new ArrayList<>();
         databaseHandler = new MySqliteHandler(AddActivity.this);
@@ -33,6 +40,11 @@ public class AddActivity extends AppCompatActivity {
         a.add(allProducts.get(i).getNazwa());
         }
     }
+
+    /**
+     *  Android Lifecycle Method
+     * @param savedInstanceState bundle in which can be stored data
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,9 +65,15 @@ public class AddActivity extends AppCompatActivity {
         exist=false;
         }
     }
+    /*
     public void setValue(boolean existt){
        exist=existt;
     }
+    */
+
+    /**
+     * Method that handle back press, and pass data
+     */
     @Override
     public void onBackPressed() {
         Intent intent = new Intent(AddActivity.this,DailyKcalActivity.class);

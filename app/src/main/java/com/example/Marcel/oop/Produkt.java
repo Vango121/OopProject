@@ -1,7 +1,7 @@
 package com.example.Marcel.oop;
 
 /**
- * Created by Vango on 29.03.2020.
+ * Main custom object class
  */
 
 public class Produkt {
@@ -13,10 +13,21 @@ public class Produkt {
     private String Nazwa;
     private String data_przydatnosci;
 
-    //empty constructor
+
+    /**
+     * empty constructor
+     */
     public Produkt(){
         super();
     }
+
+    /**
+     * Constructor
+     * @param id id in database
+     * @param Nazwa
+     * @param kcal
+     * @param data_przydatnosci
+     */
     public Produkt(int id,String Nazwa,int kcal,String data_przydatnosci){
         this.id=id;
         this.kcal=kcal;

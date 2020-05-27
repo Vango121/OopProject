@@ -1,11 +1,7 @@
 package com.example.Marcel.oop;
 
 import android.content.Intent;
-//import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -15,10 +11,6 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.TextView;
-import android.widget.Toast;
-
-import com.example.Marcel.oop.R;
 import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.ArrayList;
@@ -26,6 +18,9 @@ import java.util.List;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+/**
+ * main class
+ */
 public class MainActivity extends AppCompatActivity implements View.OnClickListener , DialogListener {
 
 
@@ -49,6 +44,10 @@ TextInputLayout textInputLayout;
 
     boolean delete_active=false;
 
+    /**
+     * Android lifecycle method
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -90,6 +89,12 @@ TextInputLayout textInputLayout;
 
 
     //menu
+
+    /**
+     * load menu xml file
+     * @param menu
+     * @return
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
@@ -97,6 +102,11 @@ TextInputLayout textInputLayout;
         return true;
     }
 
+    /**
+     * on menu item click
+     * @param item item clicked
+     * @return only true
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
@@ -108,6 +118,9 @@ TextInputLayout textInputLayout;
         return true;
     }
 
+    /**
+     * add item to database(Litesql) and list of current items
+     */
     public void addItems(){
         productsName.clear();
         if (allProducts.size() > 0) {
@@ -120,11 +133,22 @@ TextInputLayout textInputLayout;
         adapter = new ArrayAdapter(MainActivity.this, android.R.layout.simple_list_item_1, productsName);
         listView.setAdapter(adapter);
     }
+
+    /**
+     * Method which open custom dialog
+     * @see UpdateDialog
+     * and update clicked item values
+     */
     public void openDialog(){
         UpdateDialog updateDialog = new UpdateDialog();
 
         updateDialog.show(getSupportFragmentManager(),"update");
     }
+
+    /**
+     * Handle add button and delete button
+     * @param view
+     */
     @Override
     public void onClick(View view) {
 
@@ -159,6 +183,15 @@ TextInputLayout textInputLayout;
         adapter.notifyDataSetChanged();
     }
 
+    /**
+     *  Method from interface
+     * @see DialogListener
+     * get data from interface and update item list
+     * @param nazwa
+     * @param kcal
+     * @param data
+     * @param ilosc
+     */
     @Override
     public void apply(String nazwa, String kcal, String data, String ilosc) {
     newkcal=Integer.parseInt(kcal);
@@ -174,6 +207,11 @@ TextInputLayout textInputLayout;
         databaseHandler.updateProduct(jedzenie);
         addItems();
     }
+
+    /**
+     * unfortunately empty method from interface
+     * @param jedzenie custom object
+     */
     @Override
     public void pass(Jedzenie jedzenie) {
     }

@@ -13,12 +13,18 @@ import android.widget.EditText;
 import androidx.appcompat.app.AppCompatDialogFragment;
 
 /**
- * Created by Vango on 30.03.2020.
+ * Custom Dialog class to update data in mainactivity
  */
 
 public class UpdateDialog extends AppCompatDialogFragment {
     DialogListener listener;
     EditText Nazwa,Kcal,Data,Ilosc;
+
+    /**
+     * Dialog lifecycle method
+     * @param savedInstanceState
+     * @return dialog creator
+     */
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
 

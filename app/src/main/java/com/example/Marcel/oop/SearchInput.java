@@ -10,12 +10,23 @@ import android.widget.ListView;
 
 import java.util.ArrayList;
 
+/**
+ * class that handle searching in array
+ */
 public class SearchInput implements TextWatcher{
     ListView listView;
     EditText search;
     ArrayAdapter adapter;
     ArrayList<String> a;
     ArrayList<String>temp;
+
+    /**
+     * constructor
+     * @param adapter ArrayAdapter
+     * @param listView listview
+     * @param search EditText in which we write
+     * @param a ArrayList that have results
+     */
     public SearchInput(ArrayAdapter adapter, ListView listView, EditText search, ArrayList<String>a){
         this.adapter=adapter;
         this.listView=listView;
@@ -29,6 +40,14 @@ public class SearchInput implements TextWatcher{
     public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
     }
+
+    /**
+     * method trigger when text is changed in editext
+     * @param charSequence text from edittext
+     * @param i
+     * @param i1
+     * @param i2
+     */
     @Override
     public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
         String val = search.getText().toString();
