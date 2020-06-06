@@ -1,6 +1,4 @@
-package com.example.Marcel.oop;
-
-import com.example.Marcel.oop.Jedzenie;
+package com.example.Marcel.oop.model;
 
 import java.util.ArrayList;
 

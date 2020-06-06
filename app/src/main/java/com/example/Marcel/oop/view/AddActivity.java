@@ -1,4 +1,4 @@
-package com.example.Marcel.oop;
+package com.example.Marcel.oop.view;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -10,6 +10,14 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+
+import com.example.Marcel.oop.R;
+import com.example.Marcel.oop.data.MySqliteHandler;
+import com.example.Marcel.oop.model.Jedzenie;
+import com.example.Marcel.oop.model.Produkt;
+import com.example.Marcel.oop.utilities.ListViewDialog;
+import com.example.Marcel.oop.utilities.SearchInput;
+
 import java.util.ArrayList;
 import java.util.List;
 

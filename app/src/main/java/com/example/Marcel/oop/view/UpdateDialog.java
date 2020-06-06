@@ -1,4 +1,4 @@
-package com.example.Marcel.oop;
+package com.example.Marcel.oop.view;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -10,6 +10,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
 
+import com.example.Marcel.oop.R;
+import com.example.Marcel.oop.utilities.DateInputMask;
+import com.google.android.material.textfield.TextInputLayout;
+
 import androidx.appcompat.app.AppCompatDialogFragment;
 
 /**
@@ -17,8 +21,13 @@ import androidx.appcompat.app.AppCompatDialogFragment;
  */
 
 public class UpdateDialog extends AppCompatDialogFragment {
-    DialogListener listener;
+    DialogListener1 listener;
     EditText Nazwa,Kcal,Data,Ilosc;
+    TextInputLayout textInputLayout;
+
+    public UpdateDialog(DialogListener1 listener) {
+        this.listener = listener;
+    }
 
     /**
      * Dialog lifecycle method
@@ -36,6 +45,8 @@ public class UpdateDialog extends AppCompatDialogFragment {
         Kcal=(EditText)view.findViewById(R.id.updateProductKcal);
         Data=(EditText)view.findViewById(R.id.updateProductDate);
         Ilosc=(EditText)view.findViewById(R.id.updateProductCount);
+        textInputLayout=view.findViewById(R.id.textFieldDialog);
+        DateInputMask dateInputMask=new DateInputMask(Data,textInputLayout);
         builder.setView(view)
                 .setTitle("Zmiana parametrów produktu")
                 .setNegativeButton("Anuluj", new DialogInterface.OnClickListener() {
@@ -61,9 +72,12 @@ public class UpdateDialog extends AppCompatDialogFragment {
     public void onAttach(Context context) {
         super.onAttach(context);
         try {
-            listener = (DialogListener)context;
+            //listener = (DialogListener)context;
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+    public interface DialogListener1 {
+        void apply(String nazwa,String kcal,String data,String ilosc);
     }
 }

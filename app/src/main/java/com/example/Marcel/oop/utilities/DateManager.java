@@ -1,4 +1,4 @@
-package com.example.Marcel.oop;
+package com.example.Marcel.oop.utilities;
 
 import android.widget.EditText;
 import android.widget.TextView;

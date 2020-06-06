@@ -1,4 +1,4 @@
-package com.example.Marcel.oop;
+package com.example.Marcel.oop.data;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -6,6 +6,9 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
+
+import com.example.Marcel.oop.model.Jedzenie;
+import com.example.Marcel.oop.model.Produkt;
 
 import java.util.ArrayList;
 import java.util.List;

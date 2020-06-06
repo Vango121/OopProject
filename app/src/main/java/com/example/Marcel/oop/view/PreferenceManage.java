@@ -1,6 +1,8 @@
-package com.example.Marcel.oop;
+package com.example.Marcel.oop.view;
 
 import android.os.Bundle;
+
+import com.example.Marcel.oop.R;
 
 import androidx.preference.PreferenceFragmentCompat;
 

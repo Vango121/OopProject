@@ -1,4 +1,4 @@
-package com.example.Marcel.oop;
+package com.example.Marcel.oop.model;
 
 import android.os.Parcel;
 import android.os.Parcelable;

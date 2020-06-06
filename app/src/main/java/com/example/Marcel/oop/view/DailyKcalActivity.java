@@ -1,4 +1,4 @@
-package com.example.Marcel.oop;
+package com.example.Marcel.oop.view;
 
 
 import android.content.Context;
@@ -16,6 +16,12 @@ import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 import com.daasuu.ahp.AnimateHorizontalProgressBar;
+import com.example.Marcel.oop.R;
+import com.example.Marcel.oop.model.Dni;
+import com.example.Marcel.oop.model.Jedzenie;
+import com.example.Marcel.oop.presenter.DailyKcalPresenter;
+import com.example.Marcel.oop.utilities.DateManager;
+import com.example.Marcel.oop.utilities.ListViewDialog;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import java.lang.reflect.Type;
@@ -27,7 +33,7 @@ import androidx.appcompat.app.AppCompatActivity;
 /**
  * Activity class
  */
-public class DailyKcalActivity extends AppCompatActivity {
+public class DailyKcalActivity extends AppCompatActivity  {
 
 ListView listView;
 TextView Data;
@@ -38,6 +44,7 @@ ArrayList<String> productsName= new ArrayList<>();
 ArrayList<Dni> listOfDni = new ArrayList<>();
 AnimateHorizontalProgressBar progressBar;
 String recievedDataValue="";
+DailyKcalPresenter dailyKcalPresenter;
 int max_kcal=2100;
 
     /**
@@ -106,7 +113,7 @@ int max_kcal=2100;
      * @param list list of food objects
      * @return -1 or item index if found
      */
-    public int checkIfExist(Jedzenie jedzenie,ArrayList<Jedzenie>list){
+    public int checkIfExist(Jedzenie jedzenie, ArrayList<Jedzenie>list){
         for (int i = 0; i <list.size(); i++) {
             if(list.get(i).getNazwa().equals(jedzenie.getNazwa())){
                 return i;
@@ -138,14 +145,12 @@ int max_kcal=2100;
      */
     public void putData(){
         ArrayList<Jedzenie> jedzenies = new ArrayList<>();
-
-        if(getIntent().hasExtra("Jedzenie")&&ListViewDialog.done&&getIntent().hasExtra("Data")){
+        if(getIntent().hasExtra("Jedzenie")&& ListViewDialog.done&&getIntent().hasExtra("Data")){
             Intent intent=getIntent();
             Jedzenie get=intent.getParcelableExtra("Jedzenie");
             recievedDataValue=intent.getExtras().getString("Data");
-            Log.i("recieved",recievedDataValue);
+
             int ind = getIndex(listOfDni,recievedDataValue);
-            Log.i("ind",ind+"");
             if(ind>=0){
             int check=checkIfExist(get,listOfDni.get(ind).getSpis());
             if(check<0){
@@ -310,5 +315,6 @@ int max_kcal=2100;
         }
         return true;
     }
+
 
 }

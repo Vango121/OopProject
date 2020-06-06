@@ -1,17 +1,22 @@
-package com.example.Marcel.oop;
+package com.example.Marcel.oop.utilities;
 
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
+
+import com.example.Marcel.oop.view.AddActivity;
+import com.example.Marcel.oop.view.DailyKcalActivity;
+import com.example.Marcel.oop.R;
+import com.example.Marcel.oop.model.Jedzenie;
+import com.example.Marcel.oop.model.Produkt;
 
 import java.util.List;
 
@@ -26,8 +31,8 @@ public class ListViewDialog implements AdapterView.OnItemClickListener {
     private Jedzenie jedzenie;
     private Context context;
     private int id;
-    static boolean done;
-    static boolean save=false;
+    public static boolean done;
+    public static boolean save=false;
     AddActivity addActivity;
 
     /**
@@ -78,7 +83,7 @@ public class ListViewDialog implements AdapterView.OnItemClickListener {
                 Toast.makeText(context, recieveValue, Toast.LENGTH_SHORT).show();
                 jedzenie=(Jedzenie)lista.get(id);
                 jedzenie.setIlosc(Integer.parseInt(recieveValue));
-                Intent intent = new Intent(context,DailyKcalActivity.class);
+                Intent intent = new Intent(context, DailyKcalActivity.class);
                intent.putExtra("Jedzenie",jedzenie);
                intent.putExtra("Data",loadData());
                 context.startActivity(intent);
