@@ -3,7 +3,8 @@ Javadoc documentation : http://hackheroes.cba.pl/project/projectDoc/
 
 Apk download http://hackheroes.cba.pl/project/projekt.apk 
 
-główne okno aplikacji, zarządzanie produktami, edycja usuwanie i dodawanie. Pole z datą ma wymuszony format DD/MM/RRRR 
+Główne okno aplikacji, zarządzanie produktami, edycja usuwanie i dodawanie. Pole z datą ma wymuszony format DD/MM/RRRR 
+
 ![mainactivity](http://hackheroes.cba.pl/mainactivity.png)
 
 edycja produktu 
